@@ -40,7 +40,7 @@ class WeekDay
     //basic printing events function
     public function printEvents(){
         foreach($this->events as $event){
-            echo "<br>".($event->start)." | ".($event->end)." - ".$event->employee." ---  ".$event->summary;
+            echo "<br>".($event->getStartTime())." | ".($event->getEndTime())." - ".$event->employee." ---  ".$event->summary;
         }
     }
 }
