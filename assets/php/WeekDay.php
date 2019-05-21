@@ -36,9 +36,11 @@ class WeekDay
         echo "<br>";
         print_r($newEvent);
     }
+
+    //basic printing events function
     public function printEvents(){
         foreach($this->events as $event){
-            echo "<br>".convertTo12($event->start)." | ".convertTo12($event->end)." - ".$event->employee." ---  ".$event->summary;
+            echo "<br>".($event->start)." | ".($event->end)." - ".$event->employee." ---  ".$event->summary;
         }
     }
 }
