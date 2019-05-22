@@ -64,6 +64,7 @@ try{
     $newWeekDay->printEvents();
     echo "<br>";
     // print_r($newWeekDay->events);
+    echo json_encode($newWeekDay);
 
 } catch(Exception $e){
     echo $e->__toString();
