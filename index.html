@@ -4,11 +4,222 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
+    <link rel="stylesheet" href="assets/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>DEI Schedule</title>
+    <style>
+        /* #383f51, #f7567c, #dddbf1, #fcee9c, #cfed97 */
+        body{
+            background-color: #383f51;
+        }
+        #main-header{
+            background-color:black;
+            color: #fcee9c;
+            padding: 3px;
+            text-align: center;
+        }
+
+        .calendar-nav{
+            display: block; padding: 10px;
+        }
+
+        .day-wrapper{
+            display: block;
+        }
+        .day-wrapper h3{
+            background: #cfed97;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 0;
+            padding: 2px;
+        }
+        .day-wrapper h3.today{
+            background: #f7567c;
+            color: white;
+            font-size: 22px;
+        }
+        thead{
+            background: #fcee9c;
+        }
+        table tbody{
+            background: white;
+        }
+    
+    </style>
 </head>
 <body>
+
+ 
     
+    <div class="container">
+        <h2 id="main-header">
+                TODAY IS: <span id="date"></span>
+        </h2>
+        <div class="calendar-nav">
+            <button class="btn btn-primary">Prior week</button>
+            <button class="btn btn-primary">Next week</button>
+            <button class="btn btn-primary">Today</button>
+            <button class="btn btn-primary">This week</button>
+            <button class="btn btn-primary">This month</button>
+            <button class="btn btn-primary">Go to date</button>
+            <!-- <button class="btn btn-primary">Prior Week</button> -->
+        </div>
+
+        <div class="day-wrapper" id="monday">
+            <h3 class="today">Monday, </h3>
+            <table class="table table-sm table-borderless table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Departure</th>
+                        <th scope="col">Return</th>
+                        <th scope="col">Employee</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="5">No Activity</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="day-wrapper" id="tuesday">
+            <h3>Tuesday, </h3>
+            <table class="table table-sm table-borderless table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Departure</th>
+                        <th scope="col">Return</th>
+                        <th scope="col">Employee</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="5">No Activity</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="day-wrapper" id="wednesday">
+            <h3>Wednesday, </h3>
+            <table class="table table-sm table-borderless table-striped table-hover">
+                <thead>
+                    <tr>                    
+                        <th scope="col">Departure</th>
+                        <th scope="col">Return</th>
+                        <th scope="col">Employee</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="5">No Activity</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="day-wrapper" id="thursday">
+            <h3>Thursday, </h3>
+            <table class="table table-sm table-borderless table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Departure</th>
+                        <th scope="col">Return</th>
+                        <th scope="col">Employee</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="5">No Activity</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="day-wrapper" id="friday">
+            <h3>Friday, </h3>
+            <table class="table table-sm table-borderless table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Departure</th>
+                        <th scope="col">Return</th>
+                        <th scope="col">Employee</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="5">No Activity</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="day-wrapper" id="saturday">
+            <h3>Saturday, </h3>
+            <table class="table table-sm table-borderless table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Departure</th>
+                        <th scope="col">Return</th>
+                        <th scope="col">Employee</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="5">No Activity</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="day-wrapper" id="sunday">
+            <h3>Sunday, </h3>
+            <table class="table table-sm table-borderless table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Departure</th>
+                            <th scope="col">Return</th>
+                            <th scope="col">Employee</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5">No Activity</td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+    </div>
+
+
+    <script src="assets/js/jquery-3.3.1.js"></script>
+    <script src="assets/js/jquery.mask.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script>
+    let today = new Date();
+
+    //this function takes a date d and returns it in the format: day, month dd, YYYY
+    function dateToString(d){
+        let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "Octovber", "Novemeber", "December"];
+        let days = ["Sunday", "Monday","Tuesday", "Wednesday","Thursday","Friday","Saturday"];
+        return days[d.getDay()]+", "+months[d.getMonth()]+" "+d.getDate()+", "+d.getFullYear();
+    }
+
+    $(document).ready(function(){
+        $("#date").text(dateToString(today));
+    });
+    </script>
 </body>
 </html>

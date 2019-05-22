@@ -28,7 +28,6 @@ $newWeekDay = new WeekDay($d->format("D"), gmstrftime("%Y-%m-%d", $tstart));
 
 try{
 
-
     $client->setCalendar($arrayOfCalendars[$employee]);
 
     $events = $client->getEvents($stdate, $endate);
