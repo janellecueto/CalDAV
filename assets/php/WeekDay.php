@@ -33,8 +33,8 @@ class WeekDay
             $newArr[] = $o;
         }
         $this->events = $newArr;
-        echo "<br>";
-        print_r($newEvent);
+        // echo "<br>";
+        // print_r($newEvent);
     }
 
     //basic printing events function
