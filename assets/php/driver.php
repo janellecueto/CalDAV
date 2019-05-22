@@ -18,6 +18,7 @@ $stdate = gmstrftime("%Y%m%dT%H%M%SZ",$tstart);
 $endate = gmstrftime("%Y%m%dT%H%M%SZ",$tend);
 
 $employee = "steve-word_shared_by_steve.barnard";       //we need to loop through all employees,
+$initials = "SB";
 
 $client = new SimpleCalDAVClient();
 $newWeekDay = new WeekDay($d->format("D"), gmstrftime("%Y-%m-%d", $tstart));
@@ -31,7 +32,37 @@ try{
 
     $events = $client->getEvents($stdate, $endate);
 
+    foreach ($events as $event) {
+        $item = $event->getData(); // grab the ics format data
+        //	  echo "<br><pre>$item</pre>\n";                    //the $item is basically a huge blob of new line separated text values.
 
+        $itemArr = explode("\n", $item);
+
+        $summaryFound = $startFound = $endFound = false;        //there may be multiple entries for the summary and dates,
+        $msummary = $mstart = $mend = "";                       //i believe the first occurrence is the most up to date...
+        foreach($itemArr as $e){
+            if(strpos($e, "SUMMARY") !== false && !$summaryFound){
+                $arr = explode(":", $e);
+                $msummary = $arr[sizeof($arr)-1];
+                $summaryFound = true;
+            }
+            if(strpos($e, "DTSTART;TZID=America/Chicago:") !== false && !$startFound){
+                $arr = explode(":", $e);
+                $time = explode("T", $arr[1])[1];
+                $mstart = $time;
+                $startFound = true;
+            }
+            if(strpos($e, "DTEND;TZID=America/Chicago:") !== false && !$endFound){
+                $arr = explode(":", $e);
+                $time = explode("T", $arr[1])[1];
+                $mend = $time;
+                $endFound = true;
+            }
+        }
+        $newWeekDay->addEvent($initials, $msummary, $mstart, $mend);
+
+        $newWeekDay->printEvents();
+    } // foreach
 
 } catch(Exception $e){
     echo $e->__toString();
