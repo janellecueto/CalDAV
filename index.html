@@ -68,7 +68,7 @@
         </div>
 
         <div class="day-wrapper" id="monday">
-            <h3 class="today">Monday, </h3>
+            <h3>Monday, </h3>
             <table class="table table-sm table-borderless table-striped table-hover">
                 <thead>
                     <tr>
@@ -210,15 +210,36 @@
     <script>
     let today = new Date();
 
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "Octovber", "Novemeber", "December"];
+    let days = ["Sunday", "Monday","Tuesday", "Wednesday","Thursday","Friday","Saturday"];
+
     //this function takes a date d and returns it in the format: day, month dd, YYYY
     function dateToString(d){
-        let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "Octovber", "Novemeber", "December"];
-        let days = ["Sunday", "Monday","Tuesday", "Wednesday","Thursday","Friday","Saturday"];
         return days[d.getDay()]+", "+months[d.getMonth()]+" "+d.getDate()+", "+d.getFullYear();
+    }
+    function getMonday(d){
+        let day = d.getDay();
+        let diff = d.getDate() - day + (day == 0 ? -6:1);
+        return new Date(d.setDate(diff));
     }
 
     $(document).ready(function(){
         $("#date").text(dateToString(today));
+        let dayIndex = today.getDay();
+        $("#"+days[dayIndex].toLowerCase()).find("h3").addClass("today");
+
+        let monday = getMonday(today);
+        let startDate = monday.getDate();
+        let month = months[monday.getMonth()];
+        let year = monday.getFullYear();
+        console.log(monday);
+
+        for(var i = 0; i < 7; i++){
+            var dayOffset = (i == 6 ? 0 : i+1);
+            $("#"+days[dayOffset].toLowerCase()).find("h3").text(days[dayOffset] + ", "+ month+" "+(startDate+i)+", "+year);
+        }
+        
+
     });
     </script>
 </body>

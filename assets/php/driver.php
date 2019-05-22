@@ -8,13 +8,13 @@ include("Event.php");
 include("WeekDay.php");
 include("info.php");
 
-$t = time(); // get timestamp for now
+$t = time(); // get timestamp for now, the plan is to pass in time for each day.
 $d = new DateTime($t);
 //  $t += (24 * 60 * 60); // add in a day to get to tomorrow
-$tzoffset = date_offset_get(new DateTime);
+$tzoffset = date_offset_get(new DateTime);              
 $tstart = $t - ($t % (24 * 60 * 60)) - $tzoffset; // Take off seconds in the current day and take off the tzoffset since $t is in UTC
 $tend   = $tstart + (24 * 60 * 60) - $tzoffset -1;   // Add in offset for a day and take off the tzoffset since $t is in UTC and 1 second to keep in same day
-$stdate = gmstrftime("%Y%m%dT%H%M%SZ",$tstart);
+$stdate = gmstrftime("%Y%m%dT%H%M%SZ",$tstart);         //DateTime()->format("Ymd\THis\Z");
 $endate = gmstrftime("%Y%m%dT%H%M%SZ",$tend);
 
 $employee = "greg-work_shared_by_greg.doffin";       //we need to loop through all employees,
