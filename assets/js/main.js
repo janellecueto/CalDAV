@@ -64,20 +64,19 @@ let months = ["January", "February", "March", "April", "May", "June", "July", "A
                 endDate: end,
             },
             success: function(result){
-                //add new row to specified day from result
-                let data = JSON.parse(result);
-                // console.log(result);
-                let day = data["day"];
-                console.log(day);
-                let events = data["events"]; //this is an array of Event Objects("employee", "summary", "start", "end") 
-                // console.log(events);
-                events.forEach(function(e){
-                    console.log(e);
-                    addRow(day, e.start, e.end, e.employee, e.summary);
-                });
-            },
-            error: function(result){
+                let data = JSON.parse(result);  //result is an array of WeekDay objects
 
-            }
+                data.forEach(function(e){   
+                    var day = e["day"];
+                    // var date = e["date"];
+                    var events = e["events"];    //array of Event objects
+                     events.forEach(function(e){    
+                        addRow(day, e["start"], e["end"], e["employee"], e["summary"]);
+                     });
+                 });
+             },
+             error: function(result){
+                 alert("error: "+result);
+             }
         });
     }
