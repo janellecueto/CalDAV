@@ -8,7 +8,7 @@ include("Event.php");
 include("WeekDay.php");
 include("info.php");
 
-// $t = time(); // get timestamp for now, the plan is to pass in time for each day.
+$debug = true;
 
 $startDate = "";
 if(array_key_exists("startDate", $_GET)) $startDate = $_GET['startDate'];
@@ -17,7 +17,8 @@ if(array_key_exists("endDate", $_GET)) $endDate = $_GET['endDate'];
 $emp = 0;
 if(array_key_exists("emp", $_GET)) $emp = $_GET['emp'];
 
-
+$t1 = time();
+if ($debug) echo $t1."<br><br>";
 try {
     $sd = new DateTime($startDate);
     $ed = new DateTime($endDate);
@@ -54,7 +55,7 @@ $weekdays = [];
 //init weekdays array of WeekDay objects
 $cd = new DateTime($startDate);
 while($cd <= $ed) {
-    $newWeekDay = new WeekDay($sd->format("l"), $sd->format("Y-m-d"));
+    $newWeekDay = new WeekDay($cd->format("l"), $cd->format("Y-m-d"));
     $weekdays[] = $newWeekDay;
     $cd->modify('+1 day');
 }   
@@ -118,6 +119,12 @@ foreach ($rows as $row) {     //loop through all employees
 
 
 // print_r($weekdays);
+
+if($debug) {
+    $t2 = time();
+    echo $t2."<br>";
+    echo "time elasped: ".($t2-$t1)."s<br>";
+}
 echo json_encode($weekdays);
 
 

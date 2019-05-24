@@ -199,10 +199,10 @@
 
         console.log(monday);
         console.log(today);
-        console.log(today.getDay());
+        // console.log(today.getDay());
         $("#"+days[today.getDay()]).find("h3").addClass("today");
 
-        pullEvents(dateToDate(monday), $("#Sunday").attr("data-date"));
+        pullEvents(dateToDate(monday), $("#Sunday").find("h3").attr("data-date"), false, 0);
 
     // });
 
