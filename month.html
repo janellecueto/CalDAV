@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <title>DEI Schedule</title>
+    <style>
+        .month{
+            height: calc(100vh - 100px);
+            min-height: 750px;
+        }
+        table{
+            height: 100%;
+        }
+        tbody{
+            height: calc(100% - 34px);
+        }
+        tbody tr{
+            height: 18%;
+        }
+        td.inactive{
+            background: #dddbf1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 id="main-header">
+                TODAY IS: <span id="date"></span>
+        </h2>
+        <div class="calendar-nav">
+            <div class="btn-group">
+                <button class="btn btn-calendar btn-sm"><i class="fa fa-chevron-left"></i></button>
+                <button class="btn btn-calendar btn-sm">Today</button>
+                <button class="btn btn-calendar btn-sm"><i class="fa fa-chevron-right"></i></button>
+            </div>
+            <div class="btn-group btn-group-toggle" style="float: right;">
+                <button class="btn btn-calendar btn-sm view" data-view="day">Day</button>
+                <button class="btn btn-calendar btn-sm view" data-view="week">Week</button>
+                <button class="btn btn-calendar btn-sm view selected" data-view="month">Month</button>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+            <div class="month">
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width: 14.25%;">Sunday</th>
+                                <th scope="col" style="width: 14.3%;">Monday</th>
+                                <th scope="col" style="width: 14.3%;">Tuesday</th>
+                                <th scope="col" style="width: 14.3%;">Wednesday</th>
+                                <th scope="col" style="width: 14.3%;">Thursday</th>
+                                <th scope="col" style="width: 14.3%;">Friday</th>
+                                <th scope="col" style="width: 14.25%;">Saturday</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-day="Sunday"></td>
+                                <td data-day="Monday"></td>
+                                <td data-day="Tuesday"></td>
+                                <td data-day="Wednesday"></td>
+                                <td data-day="Thursday"></td>
+                                <td data-day="Friday"></td>
+                                <td data-day="Saturday"></td>
+                            </tr>
+                            <tr>                        
+                                <td data-day="Sunday"></td>
+                                <td data-day="Monday"></td>
+                                <td data-day="Tuesday"></td>
+                                <td data-day="Wednesday"></td>
+                                <td data-day="Thursday"></td>
+                                <td data-day="Friday"></td>
+                                <td data-day="Saturday"></td>
+                            </tr>
+                            <tr>                        
+                                <td data-day="Sunday"></td>
+                                <td data-day="Monday"></td>
+                                <td data-day="Tuesday"></td>
+                                <td data-day="Wednesday"></td>
+                                <td data-day="Thursday"></td>
+                                <td data-day="Friday"></td>
+                                <td data-day="Saturday"></td>
+                            </tr>
+                            <tr>                        
+                                <td data-day="Sunday"></td>
+                                <td data-day="Monday"></td>
+                                <td data-day="Tuesday"></td>
+                                <td data-day="Wednesday"></td>
+                                <td data-day="Thursday"></td>
+                                <td data-day="Friday"></td>
+                                <td data-day="Saturday"></td>
+                            </tr>
+                            <tr>                        
+                                <td data-day="Sunday"></td>
+                                <td data-day="Monday"></td>
+                                <td data-day="Tuesday"></td>
+                                <td data-day="Wednesday"></td>
+                                <td data-day="Thursday"></td>
+                                <td data-day="Friday"></td>
+                                <td data-day="Saturday"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+    </div>
+
+    <script src="assets/js/jquery-3.3.1.js"></script>
+    <script src="assets/js/jquery.mask.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+    let today = new Date();
+    let currView = "month";
+
+    let m = today.getMonth(), y = today.getFullYear();
+    
+    let prevLastDay = new Date(y, m, 0);
+    let firstDay = new Date(y, m, 1);
+    let firstDayIndex = firstDay.getDay();
+    
+    let lastDay = new Date(y, m+1, 0);
+    let lastDayIndex = lastDay.getDay();
+
+    $(document).ready(function(){
+        $("#date").text(dateToString(today));
+
+    //     pullEvents(dateToDate(today), dateToDate(today));
+        for(var i = 0; i < 7; i++){
+            if(i === firstDayIndex+1) break;
+            var t = prevLastDay.getDate()-firstDayIndex+i;
+            $("tbody tr:first-child td:nth-child("+i+")")
+                .addClass("inactive")
+                .text(t)
+                .attr("data-date", dateToDate(new Date(prevLastDay.getFullYear(), prevLastDay.getMonth(), t)));
+        }
+
+        var week = 1;
+        var d = firstDayIndex+1;
+        for(var i = 1; i <= lastDay.getDate(); i++){
+            if(d == 8){
+                d=1;
+                week++;
+            }
+            $("tbody tr:nth-child("+week+") td:nth-child("+d+")")
+                .text(i)
+                .attr("data-date", dateToDate(new Date(y, m, d)));
+            d++;
+        }
+
+        var c = 1;
+        for(var i = lastDayIndex+2; i < 8; i++){
+            $("tbody tr:last-child td:nth-child("+i+")")
+                .addClass("inactive")
+                .text(c)
+                .attr("data-date", dateToDate(new Date(y, m+1, c)));
+            c++;
+        }
+
+    });
+
+    $("button.view").click(function(){
+        if($(this).attr("data-view") != currView){
+            //switch views
+            console.log(currView);
+            if($(this).attr("data-view") === "week") location.href="index.html";
+            else location.href=$(this).attr("data-view")+".html";
+        }
+    });
+
+    pullEvents(dateToDate(firstDay), dateToDate(firstDay), true);
+    </script>
+</body>
+</html>

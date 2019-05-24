@@ -30,9 +30,9 @@
                 <button class="btn btn-calendar btn-sm"><i class="fa fa-chevron-right"></i></button>
             </div>
             <div class="btn-group btn-group-toggle" style="float: right;">
-                <button class="btn btn-calendar btn-sm view">Day</button>
-                <button class="btn btn-calendar btn-sm selected view">Week</button>
-                <button class="btn btn-calendar btn-sm view">Month</button>
+                <button class="btn btn-calendar btn-sm view" data-view="day">Day</button>
+                <button class="btn btn-calendar btn-sm selected view" data-view="week">Week</button>
+                <button class="btn btn-calendar btn-sm view" data-view="month">Month</button>
             </div>
         </div>
 
@@ -206,10 +206,14 @@
 
     // });
 
-    $("button.view").click(function(){
-        $(".selected").toggleClass("selected");
-        $(this).toggleClass("selected");
-    });
+        $("button.view").click(function(){
+            if($(this).attr("data-view") != currView){
+                console.log(currView);
+                //switch views
+                if($(this).attr("data-view") === "week") location.href="index.html";
+                else location.href=$(this).attr("data-view")+".html";
+            }
+        });
 
 
     </script>

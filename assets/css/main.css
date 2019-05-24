@@ -41,3 +41,6 @@ thead{
 table tbody{
     background: white;
 }
+div.row.mini{
+    font-size: 10px;
+}
