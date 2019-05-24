@@ -17,71 +17,76 @@ if(array_key_exists("endDate", $_GET)) $endDate = $_GET['endDate'];
 $emp = 0;
 if(array_key_exists("emp", $_GET)) $employee = $_GET['emp'];
 
-$d = new DateTime($startDate);
-$t = $d->getTimestamp();
+try {
+    $sd = new DateTime($startDate);
+    $ed = new DateTime($endDate);
+}catch(Exception $e){
+    echo "Error 1: ".$e->__toString();
+    exit(0);
+}       //exit if dates are in incorrect format
 
 $conn = new mysqli($host, $user, $password, $timeTbl);
 if($conn->errno){
     echo "Error: ".$conn->error;
     exit(0);
-}
-
-//  $t += (24 * 60 * 60); // add in a day to get to tomorrow
-$tzoffset = date_offset_get($d);              
-$tstart = $t - ($t % (24 * 60 * 60)) - $tzoffset; // Take off seconds in the current day and take off the tzoffset since $t is in UTC
-$tend   = $tstart + (24 * 60 * 60) - $tzoffset -1;   // Add in offset for a day and take off the tzoffset since $t is in UTC and 1 second to keep in same day
-$stdate = gmstrftime("%Y%m%dT%H%M%SZ",$tstart);         //DateTime()->format("Ymd\THis\Z");
-$endate = gmstrftime("%Y%m%dT%H%M%SZ",$tend);
+}       //exit if we can't connect to database
 
 $query = "SELECT initials, caldav FROM time.employee";
 if($emp){
-    $query .= " WHERE initials = $emp";
+    $query .= " WHERE initials = '$emp'";
 }
 
 $result = $conn->query($query);
 $rows = $result->fetch_all();       //array of arrays size 2 [0] => initials, [1] => caldav
 
-// foreach ($rows as $row){
-//     echo "$row[0] - $row[1]<br>";
-// }
+$conn->close();
 
-$employee = "steve-work_shared_by_steve.barnard";       //we need to loop through all employees,
-$initials = "SB";
-
+//set up SimpleCalDAVClient and connect to DEI calendars
 $client = new SimpleCalDAVClient();
 $client->connect($owncloud, $oUser, $oPassword);
 $arrayOfCalendars = $client->findCalendars();
 
-$newWeekDay = new WeekDay($d->format("l"), gmstrftime("%Y-%m-%d", $tstart));
+$weekdays = [];
 
-try{
-    foreach($rows as $row){
+//we need to keep track of dates, the event data that $client->getEvents() returns does not contain information on date of event
+while($sd <= $ed) {
+    $st = $sd->getTimestamp();
+    $tzoffset = date_offset_get($sd);
+    $tstart = $st - ($st % (24 * 60 * 60)) - $tzoffset; // Take off seconds in the current day and take off the tzoffset since $t is in UTC
+    $tend   = $tstart + (24 * 60 * 60) - $tzoffset -1;   // Add in offset for a day and take off the tzoffset since $t is in UTC and 1 second to keep in same day
+
+    $stdate = gmstrftime("%Y%m%dT%H%M%SZ",$tstart);         //DateTime()->format("Ymd\THis\Z");
+    $endate = gmstrftime("%Y%m%dT%H%M%SZ",$tend);
+
+    $newWeekDay = new WeekDay($sd->format("l"), $sd->format("Y-m-d"));
+
+    foreach ($rows as $row) {     //loop through all employees
         // $client->setCalendar(strtolower($row[1]));
-        $client->setCalendar($arrayOfCalendars[strtolower($row[1])]);
+        $client->setCalendar($arrayOfCalendars[strtolower($row[1])]);   //set their calendar
 
         $events = $client->getEvents($stdate, $endate);
 
         foreach ($events as $event) {
             $item = $event->getData(); // grab the ics format data
-            //	  echo "<br><pre>$item</pre>\n";                    //the $item is basically a huge blob of new line separated text values.
+//            echo "<br><pre>$item</pre>\n";                    //the $item is basically a huge blob of new line separated text values.
 
             $itemArr = explode("\n", $item);
 
             $summaryFound = $startFound = $endFound = false;        //there may be multiple entries for the summary and dates,
             $msummary = $mstart = $mend = "";                       //i believe the first occurrence is the most up to date...
-            foreach($itemArr as $e){
-                if(strpos($e, "SUMMARY") !== false && !$summaryFound){
+            foreach ($itemArr as $e) {
+                if (strpos($e, "SUMMARY") !== false && !$summaryFound) {
                     $arr = explode(":", $e);
-                    $msummary = $arr[sizeof($arr)-1];
+                    $msummary = $arr[sizeof($arr) - 1];
                     $summaryFound = true;
                 }
-                if(strpos($e, "DTSTART;TZID=America/Chicago:") !== false && !$startFound){
+                if (strpos($e, "DTSTART;TZID=America/Chicago:") !== false && !$startFound) {
                     $arr = explode(":", $e);
                     $time = explode("T", $arr[1])[1];
                     $mstart = $time;
                     $startFound = true;
                 }
-                if(strpos($e, "DTEND;TZID=America/Chicago:") !== false && !$endFound){
+                if (strpos($e, "DTEND;TZID=America/Chicago:") !== false && !$endFound) {
                     $arr = explode(":", $e);
                     $time = explode("T", $arr[1])[1];
                     $mend = $time;
@@ -91,14 +96,15 @@ try{
             $newWeekDay->addEvent(strtoupper($row[0]), $msummary, $mstart, $mend);
         } // foreach event
     }   // foreach employee
+    $sd->modify('+1 day');
+    $weekdays[] = $newWeekDay;
+}   //end while
 
 
-    // $newWeekDay->printEvents();
+// $newWeekDay->printEvents();
 //    echo "<br>";
-    // print_r($newWeekDay->events);
-    echo json_encode($newWeekDay);
+// print_r($newWeekDay->events);
+//echo json_encode($newWeekDay);
+echo json_encode($weekdays);
 
-} catch(Exception $e){
-    echo "Error 1:";
-    echo $e->__toString();
-}
+

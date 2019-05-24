@@ -222,25 +222,19 @@
         for(var i = 0; i < 7; i++){         //set days of week
             var nextDay = new Date(monday);
             nextDay.setDate(monday.getDate()+i);
-            console.log(nextDay);
             var l = nextDay.getDay();   //day index
             var d = nextDay.getDate();  //date 
             var m = nextDay.getMonth(); //month index
             var y = nextDay.getFullYear(); //ful year
-            $("#"+days[l]).find("h3").text(days[l] + ", "+ months[m]+" "+d+", "+y);
-            $("#"+days[l]).attr("data-date", ymdToDate(y, m, d));
+            $("#"+days[l]).find("h3").text(days[l] + ", "+ months[m]+" "+d+", "+y).attr("data-date", ymdToDate(y, m, d));
         }
 
 
         console.log(monday);
         console.log(today);
-        console.log(dateToDate(today));
-        $("div[data-date='"+dateToDate(today)+"']").find("h3").addClass("today");
-        
-        // $("div.day-wrapper").each(function(){
-        //     let d = $(this).attr("data-date");
-        //     pullEvents(d);
-        // })
+        console.log(today.getDay());
+        $("#"+days[today.getDay()]).find("h3").addClass("today");
+
         pullEvents(dateToDate(monday), $("#Sunday").attr("data-date"));
 
     // });
