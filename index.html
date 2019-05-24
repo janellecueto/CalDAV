@@ -24,6 +24,13 @@
         .calendar-nav{
             display: block; padding: 0 0 10px;
         }
+        .btn-calendar{
+            background-color: #dddbf1;
+            color: black;
+        }
+        .btn-calendar:hover, .btn-calendar.selected{
+            background-color: #ebe8ff;
+        }
 
         .day-wrapper{
             display: block;
@@ -59,14 +66,14 @@
         </h2>
         <div class="calendar-nav">
             <div class="btn-group">
-                <button class="btn btn-primary btn-sm"><i class="fa fa-chevron-left"></i></button>
-                <button class="btn btn-primary btn-sm">Today</button>
-                <button class="btn btn-primary btn-sm"><i class="fa fa-chevron-right"></i></button>
+                <button class="btn btn-calendar btn-sm"><i class="fa fa-chevron-left"></i></button>
+                <button class="btn btn-calendar btn-sm">Today</button>
+                <button class="btn btn-calendar btn-sm"><i class="fa fa-chevron-right"></i></button>
             </div>
             <div class="btn-group btn-group-toggle" style="float: right;">
-                <button class="btn btn-primary btn-sm">Day</button>
-                <button class="btn btn-primary btn-sm">Week</button>
-                <button class="btn btn-primary btn-sm">Month</button>
+                <button class="btn btn-calendar btn-sm">Day</button>
+                <button class="btn btn-calendar btn-sm selected">Week</button>
+                <button class="btn btn-calendar btn-sm">Month</button>
             </div>
         </div>
 
@@ -79,7 +86,7 @@
                         <th scope="col">Return</th>
                         <th scope="col">Employee</th>
                         <th scope="col">Location</th>
-                        <th scope="col">Description</th>
+                        <th scope="col" style="width: 50%;">Description</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -98,7 +105,7 @@
                         <th scope="col">Return</th>
                         <th scope="col">Employee</th>
                         <th scope="col">Location</th>
-                        <th scope="col">Description</th>
+                        <th scope="col" style="width: 50%;">Description</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -117,7 +124,7 @@
                         <th scope="col">Return</th>
                         <th scope="col">Employee</th>
                         <th scope="col">Location</th>
-                        <th scope="col">Description</th>
+                        <th scope="col" style="width: 50%;">Description</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -136,7 +143,7 @@
                         <th scope="col">Return</th>
                         <th scope="col">Employee</th>
                         <th scope="col">Location</th>
-                        <th scope="col">Description</th>
+                        <th scope="col" style="width: 50%;">Description</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -155,7 +162,7 @@
                         <th scope="col">Return</th>
                         <th scope="col">Employee</th>
                         <th scope="col">Location</th>
-                        <th scope="col">Description</th>
+                        <th scope="col" style="width: 50%;">Description</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -174,7 +181,7 @@
                         <th scope="col">Return</th>
                         <th scope="col">Employee</th>
                         <th scope="col">Location</th>
-                        <th scope="col">Description</th>
+                        <th scope="col" style="width: 50%;">Description</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -193,7 +200,7 @@
                             <th scope="col">Return</th>
                             <th scope="col">Employee</th>
                             <th scope="col">Location</th>
-                            <th scope="col">Description</th>
+                            <th scope="col" style="width: 50%;">Description</th>
                         </tr>
                     </thead>
                     <tbody>
