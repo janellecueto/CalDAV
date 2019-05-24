@@ -26,7 +26,7 @@ let months = ["January", "February", "March", "April", "May", "June", "July", "A
     }
     function getMonday(d){
         let day = d.getDay();
-        let diff = d.getDate() - day + (day === 0 ? -6:1);
+        let diff = d.getDate() - day + (day == 0 ? -6:1);
         let ret = new Date(d);
         ret.setDate(diff);
         return ret;
@@ -67,27 +67,17 @@ let months = ["January", "February", "March", "April", "May", "June", "July", "A
                 //add new row to specified day from result
                 let data = JSON.parse(result);
                 // console.log(result);
-                // let day = data["day"];
-                // console.log(day);
-                // let events = data["events"]; //this is an array of Event Objects("employee", "summary", "start", "end")
-                // // console.log(events);
-                // events.forEach(function(e){
-                //     console.log(e);
-                //     addRow(day, e.start, e.end, e.employee, e.summary);
-                // });
-
-                //result is now an array of WeekDay objects
-                data.forEach(function(e){
-                   var day = e["day"];
-                   // var date = e["date"];
-                   var events = e["events"];    //array of Event objects
-                    events.forEach(function(e){
-                       addRow(day, e["start"], e["end"], e["employee"], e["summary"]);
-                    });
+                let day = data["day"];
+                console.log(day);
+                let events = data["events"]; //this is an array of Event Objects("employee", "summary", "start", "end") 
+                // console.log(events);
+                events.forEach(function(e){
+                    console.log(e);
+                    addRow(day, e.start, e.end, e.employee, e.summary);
                 });
             },
             error: function(result){
-                alert("error: "+result);
+
             }
         });
     }

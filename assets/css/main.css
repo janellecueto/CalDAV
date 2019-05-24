@@ -1,0 +1,43 @@
+/* #383f51, #f7567c, #dddbf1, #fcee9c, #cfed97 */
+body{
+    background-color: #383f51;
+}
+#main-header{
+    background-color:black;
+    color: #fcee9c;
+    padding: 3px;
+    text-align: center;
+}
+
+.calendar-nav{
+    display: block; padding: 0 0 10px;
+}
+.btn-calendar{
+    background-color: #dddbf1;
+    color: black;
+}
+.btn-calendar:hover, .btn-calendar.selected{
+    background-color: #ebe8ff;
+}
+
+.day-wrapper{
+    display: block;
+}
+.day-wrapper h3{
+    background: #cfed97;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 0;
+    padding: 2px;
+}
+.day-wrapper h3.today{
+    background: #f7567c;
+    color: white;
+    font-size: 22px;
+}
+thead{
+    background: #fcee9c;
+}
+table tbody{
+    background: white;
+}
