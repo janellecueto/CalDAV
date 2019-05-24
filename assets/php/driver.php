@@ -61,7 +61,7 @@ while($sd <= $ed) {
     $newWeekDay = new WeekDay($sd->format("l"), $sd->format("Y-m-d"));
 
     foreach ($rows as $row) {     //loop through all employees
-        // $client->setCalendar(strtolower($row[1]));
+        // $client->setCalendar($arrayOfCalendars["old"]);
         $client->setCalendar($arrayOfCalendars[strtolower($row[1])]);   //set their calendar
 
         $events = $client->getEvents($stdate, $endate);

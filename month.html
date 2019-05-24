@@ -27,6 +27,13 @@
         td.inactive{
             background: #dddbf1;
         }
+        th, td{
+            min-width: 160px;
+            max-width: 240px;
+        }
+        td.today{
+            background: rgba(252,238,156,0.5);
+        }
     </style>
 </head>
 <body>
@@ -150,9 +157,14 @@
                 d=1;
                 week++;
             }
+            var currDay = new Date(y,m,i);
             $("tbody tr:nth-child("+week+") td:nth-child("+d+")")
                 .text(i)
-                .attr("data-date", dateToDate(new Date(y, m, d)));
+                .attr("data-date", dateToDate(currDay));
+            if(i == today.getDate()){
+                $("tbody tr:nth-child("+week+") td:nth-child("+d+")").addClass("today");
+            console.log(currDay+" [ "+today);
+            }
             d++;
         }
 
@@ -176,7 +188,7 @@
         }
     });
 
-    pullEvents(dateToDate(firstDay), dateToDate(firstDay), true);
+    pullEvents(dateToDate(firstDay), dateToDate(lastDay), true);
     </script>
 </body>
 </html>

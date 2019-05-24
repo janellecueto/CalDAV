@@ -41,6 +41,14 @@ thead{
 table tbody{
     background: white;
 }
-div.row.mini{
+div.minirow{
     font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    display:block;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
+span.emp{display: inline-block; width: 10%;}
+span.time{display: inline-block; width: 25%;}
+span.desc{display: inline-block; width: 65%;}

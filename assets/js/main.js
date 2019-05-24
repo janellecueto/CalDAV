@@ -33,15 +33,19 @@ function getMonday(d){
 }
 function timeFormat(t){
     //converts hhmmss to hh:mm AM/PM
+    if(!t){
+        return "-";
+    }
     let hrs = t.substring(0,2);
     let ampm = "AM";
     if(parseInt(hrs)>=12){
         ampm = "PM";
         if(parseInt(hrs)>12){
             hrs -= 12;
+            
         }
     }
-    return hrs+":"+t.substring(2,4)+" "+ampm;
+    return parseInt(hrs)+":"+t.substring(2,4)+" "+ampm;
 }
 function addRow(div, startTime, endTime, emp, desc){
     let $tbl = $("#"+div).find("table").find("tbody");
@@ -56,9 +60,14 @@ function addRow(div, startTime, endTime, emp, desc){
 }
 
 function addMonthDay(date, emp, startTime, endTime, desc){
-    let $day = $("td[data-date-'"+date+"']");
-    let newRow = $("<div>").addClass("row mini");
-    newRow.html("<div class='col-1'>"+emp+"</div><div class='col-4'>"+startTime+"-"+endTime+"</div><div class='col-7' style='overflow-x: hidden;'>"+desc+"</div>");
+    let $day = $("td[data-date='"+date+"']");
+    let newRow = $("<div>").addClass("minirow");
+    let st = timeFormat(startTime);
+    let et = timeFormat(endTime);
+    newRow.html("<span class='emp'>"+emp+"</span><span class='time'>" + 
+    st.substring(0,st.length-3) + "-"+et.substring(0,st.length-3) + 
+    "</span><span class='desc'>"+desc+"</span>");
+    // console.log(st.substring(0,st.length-3));
     $day.append(newRow);
 }
 
@@ -72,14 +81,20 @@ function pullEvents(start, end, month=false){
         },
         success: function(result){
             let data = JSON.parse(result);  //result is an array of WeekDay objects
-
+            console.log(result);
             data.forEach(function(e){   
                 var day = e["day"];
                 var date = e["date"];
+                console.log(date);
+                console.log(month);
                 var events = e["events"];    //array of Event objects
                 events.forEach(function(e){    
-                    if(month) addMonthDay(date, e["employee"], e["start"], e["end"], e["summary"]);
-                    else addRow(day, e["start"], e["end"], e["employee"], e["summary"]);
+                    console.log(e);
+                    if(month) {
+                        addMonthDay(date, e["employee"], e["start"], e["end"], e["summary"]);
+                    } else {
+                        addRow(day, e["start"], e["end"], e["employee"], e["summary"]);
+                    }
                 });
             });
             
