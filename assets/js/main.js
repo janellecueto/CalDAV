@@ -71,13 +71,14 @@ function addMonthDay(date, emp, startTime, endTime, desc){
     $day.append(newRow);
 }
 
-function pullEvents(start, end, month=false){
+function pullEvents(start, end, month=false, emp=false){
     $.ajax({
         method: "GET",
-        url: "assets/php/driver.php", 
+        url: "assets/php/driver2.php", 
         data: {
             startDate: start,
             endDate: end,
+            emp: emp
         },
         success: function(result){
             let data = JSON.parse(result);  //result is an array of WeekDay objects
@@ -85,11 +86,9 @@ function pullEvents(start, end, month=false){
             data.forEach(function(e){   
                 var day = e["day"];
                 var date = e["date"];
-                console.log(date);
-                console.log(month);
                 var events = e["events"];    //array of Event objects
                 events.forEach(function(e){    
-                    console.log(e);
+                    // console.log(e);
                     if(month) {
                         addMonthDay(date, e["employee"], e["start"], e["end"], e["summary"]);
                     } else {
