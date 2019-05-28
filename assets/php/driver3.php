@@ -46,7 +46,7 @@ $rows = $result->fetch_all();       //array of arrays size 2 [0] => initials, [1
 
 $conn->close();
 
-$conn = new mysqli("owncloud.dei-pe.com", "jay.tolbert", "jay3tolbert");
+$conn = new mysqli("owncloud.dei-pe.com", "root", "bard\$rover");
 if($conn->errno){
     echo "Error connecting to db: ".$conn->error;
     exit();
