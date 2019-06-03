@@ -8,7 +8,7 @@ include("Event.php");
 include("WeekDay.php");
 include("info.php");
 
-$debug = true;
+$debug = false;
 
 $startDate = "";
 if(array_key_exists("startDate", $_GET)) $startDate = $_GET['startDate'];
