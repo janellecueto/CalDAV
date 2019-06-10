@@ -83,7 +83,7 @@ function pullEvents(start, end, month=false, emp=false){
         success: function(result){
             console.log(result);
             console.log(emp);
-            console.log(data.length);
+            
             let data = JSON.parse(result);  //result is an array of WeekDay objects
             
             data.forEach(function(e){   
