@@ -6,6 +6,10 @@ The core of this project is to replicate the behaviour of the existing DEI emplo
 
 No calendar-specific library has been used to create the UI, this has been done using the Bootstrap CSS framework.
 
+### Screenshots
+![](images/caldav-01.JPG)
+![](images/caldav-02.JPG)
+
 ### Original Functionality:
 - Days displayed as rows in week-view, current day is highlighted
   - Day and Date are displayed
